@@ -1,10 +1,8 @@
 def func_1(num: int) -> int:
 	if num < 0:
 		return -1
-	elif num == 0:
-		return 1
 	else:
-		return func_1(num-1)
+		return 7
 
 def func_2(letter: str) -> int:
 	return ord(letter)
