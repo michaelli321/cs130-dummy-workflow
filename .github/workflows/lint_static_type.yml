@@ -21,6 +21,8 @@ jobs:
     - name: Install pipenv and dependencies
       run: |
         pip install pipenv
+        pip install flake8
+        pip install mypy
         pipenv install --ignore-pipfile --deploy
 
     - name: Run linters
