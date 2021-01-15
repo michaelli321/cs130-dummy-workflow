@@ -1,0 +1,29 @@
+name: Code Coverage
+on: pull_request
+
+jobs:
+  CI-Tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+
+    - name: Install pipenv and dependencies
+      run: |
+        pip install pipenv
+        pipenv install --ignore-pipfile --deploy
+
+    - name: Run Unit Tests
+      run: |
+        pipenv run coverage run -m unittest discover
+        pipenv run coverage report -m > coverage.txt
+        echo -e "\`\`\`\n$(cat coverage.txt)\n\`\`\`" > coverage.txt
+
+    - name: Comment PR 
+      uses: machine-learning-apps/pr-comment@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        path: coverage.txt
