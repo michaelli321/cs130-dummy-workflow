@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 coverage = "5.3.1"
+mypy = "*"
+flake8 = "*"
 
 [dev-packages]
 
