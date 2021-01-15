@@ -1,0 +1,34 @@
+name: Lint
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      main
+
+jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+
+    - name: Install pipenv and dependencies
+      run: |
+        pip install pipenv
+        pip install flake8
+        pip install mypy
+        pipenv install --ignore-pipfile --deploy
+
+    - name: Run linters
+      uses: wearerequired/lint-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # Enable linters
+        flake8: true
+        mypy: true
